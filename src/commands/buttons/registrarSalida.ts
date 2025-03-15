@@ -12,11 +12,11 @@ export default {
   async execute(interaction: ButtonInteraction){
     try{
       const member = interaction.member as GuildMember;
-      const employee = await Employee.findOne({ where: { discordId: member.id } });
-      const workingRole = await Role.findOne({ attributes: ['roleId'], where: { isWorking: true } });
+      const employee = await Employee.findOne({ where: { discordId: member.id, guildId: interaction.guildId } });
+      const workingRole = await Role.findOne({ attributes: ['roleId'], where: { isWorking: true, guildId: interaction.guildId } });
       if (!employee) return await interaction.reply({ content: 'No estas registrado como empleado, por favor contacta a directiva para registrarte.', flags: MessageFlags.Ephemeral });
       if (!employee.isWorking) return await interaction.reply({ content: 'No estas trabajando, primero ficha tu entrada.', flags: MessageFlags.Ephemeral });
-      const lastRegistry = await HoursRegistry.findOne({ where: { employeeId: employee.id }, order: [['startTime', 'DESC']] });
+      const lastRegistry = await HoursRegistry.findOne({ where: { employeeId: employee.id, guildId: interaction.guildId }, order: [['startTime', 'DESC']] });
       if (!lastRegistry) return await interaction.reply({ content: 'No se encontro tu registro de entrada, por favor contacta a directiva.', flags: MessageFlags.Ephemeral });
       employee.isWorking = false;
       await employee.save();

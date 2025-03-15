@@ -7,11 +7,14 @@ export default {
     .setName('configurar_permisos_rol')
     .setDescription('Establece que roles pueden ejecutar un comando, si no se configura cualquiera podra ejecutarlo')
     .addStringOption(option => option.setName('comando').setDescription('El nombre del comando que se quiere configurar').setRequired(true).addChoices(
-      { name: "configurarPermisosRol", value: "configurarPermisosRol" },
-      { name: "configurarRolEmpleado", value: "configurarRolEmpleado" },
-      { name: "configurarRoles", value: "configurarRoles" },
-      { name: "configurarRolTrabajando", value: "configurarRolTrabajando" },
-      { name: "registrarEntrada", value: "registrarEntrada" },
+      { name: "consultar_horas", value: "consultar_horas" },
+      { name: "registrar_entrada", value: "registrar_entrada" },
+      { name: "registrar_salida", value: "registrar_salida" },
+      { name: "conf_empleados", value: "conf_empleados" },
+      { name: "configurar_permisos_rol", value: "configurar_permisos_rol" },
+      { name: "configurar_rol_empleado", value: "configurar_rol_empleado" },
+      { name: "configurar_roles", value: "configurar_roles" },
+      { name: "configurar_rol_trabajando", value: "configurar_rol_trabajando" },
     ))
     .addStringOption((option) =>
       option
@@ -25,7 +28,6 @@ export default {
         const dbCommand = await Command.findOne( { include: [Role], where: { name: commandName } } );
         if (!dbCommand) return await interaction.reply({ content: 'No se pudo obtener el comando, intenta nuevamente.', flags: MessageFlags.Ephemeral });
         const rolesString = interaction.options.getString('roles', true);
-
         const roleIds: string[] = [];
         const roleMentions = rolesString.match(/<@&(\d+)>/g);
 
@@ -39,7 +41,7 @@ export default {
         }
 
         if (roleIds.length === 0) return await interaction.reply({ content: 'No se pudo obtener los roles, intenta nuevamente.', flags: MessageFlags.Ephemeral });
-        const roles = await Role.findAll({ where: { roleId: roleIds } });
+        const roles = await Role.findAll({ where: { roleId: roleIds, guildId: interaction.guildId } });
         await dbCommand.$set('roles', []);
         await dbCommand.$add('roles', roles);
         await interaction.reply({ content: 'Permisos asignados correctamente!!', flags: MessageFlags.Ephemeral });

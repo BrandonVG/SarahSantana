@@ -7,14 +7,21 @@ export default {
   async execute(interaction: Interaction, client: SaraClient){
     const userRoles = interaction.guild?.members.cache.get(interaction.user.id)?.roles.cache.map((role) => role.id) || [];
     let commandName: string | undefined;
-    if (interaction.isChatInputCommand()) commandName = interaction.commandName;
-    else if (interaction.isButton()) commandName = interaction.customId;
-    if (!commandName) return;
+    let guildId;
+    if (interaction.isChatInputCommand()){
+      commandName = interaction.commandName;
+      guildId = interaction.guildId;
+    }
+    else if (interaction.isButton()){
+      commandName = interaction.customId;
+      guildId = interaction.guildId;
+    }
+    if (!commandName || !guildId) return;
 
     const handler = client.commands.get(commandName);
     if (!handler) return;
 
-    const isAllowed = await hasPermission(commandName, userRoles);
+    const isAllowed = await hasPermission(commandName, userRoles, guildId);
     if (!isAllowed) {
       if (interaction.isRepliable()) {
         return interaction.reply({ content: 'No tienes permisos para ejecutar esta acción.', flags: MessageFlags.Ephemeral });

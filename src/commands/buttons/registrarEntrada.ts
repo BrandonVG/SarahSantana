@@ -11,13 +11,13 @@ export default {
   async execute(interaction: ButtonInteraction){
     try{
       const member = interaction.member as GuildMember;
-      const employee = await Employee.findOne({ where: { discordId: member.id } });
-      const workingRole = await Role.findOne({ attributes: ['roleId'], where: { isWorking: true } });
+      const employee = await Employee.findOne({ where: { discordId: member.id, guildId: interaction.guildId } });
+      const workingRole = await Role.findOne({ attributes: ['roleId'], where: { isWorking: true, guildId: interaction.guildId } });
       if (!employee) return await interaction.reply({ content: 'No estas registrado como empleado, por favor contacta a directiva para registrarte.', flags: MessageFlags.Ephemeral });
       if (employee.isWorking) return await interaction.reply({ content: 'Ya estas trabajando, no puedes registrar tu entrada nuevamente.', flags: MessageFlags.Ephemeral });
       employee.isWorking = true;
       await employee.save();
-      await HoursRegistry.create({ employeeId: employee.id, startTime: new Date() });
+      await HoursRegistry.create({ employeeId: employee.id, startTime: new Date(), guildId: interaction.guildId });
       if (workingRole && !(member.roles as GuildMemberRoleManager).cache.has(workingRole?.roleId)){
         await (member.roles as GuildMemberRoleManager).add(workingRole.roleId);
       }

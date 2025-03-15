@@ -9,7 +9,7 @@ export default {
     try {
       const rolesIds = interaction.guild?.roles.cache.map((role) => role) || [];
       rolesIds.forEach(async (role: DiscordRole) => {
-        await Role.findOrCreate( { where: { roleId: role.id} } );
+        await Role.findOrCreate( { where: { roleId: role.id, guildId: interaction.guildId } } );
       });
       await interaction.reply({ content: 'Roles cargados en la base de datos, por favor siga con la configuración inicial :)', flags: MessageFlags.Ephemeral });
     }

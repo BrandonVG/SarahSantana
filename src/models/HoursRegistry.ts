@@ -18,6 +18,9 @@ class HoursRegistry extends Model {
   @Column({ type: DataTypes.BIGINT, defaultValue: 0 })
   workedHours!: number;
 
+  @Column({ type: DataTypes.STRING})
+  guildId!: string;
+
   @BelongsTo(() => Employee)
   employee!: Employee;
 }

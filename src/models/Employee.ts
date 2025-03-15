@@ -12,6 +12,9 @@ class Employee extends Model {
   @Column({ type: DataTypes.BOOLEAN, defaultValue: false })
   isWorking!: boolean;
 
+  @Column({ type: DataTypes.STRING})
+  guildId!: string;
+
   @HasMany(() => HoursRegistry)
   hoursRegistries!: HoursRegistry[];
   

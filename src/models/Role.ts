@@ -14,6 +14,9 @@ class Role extends Model {
   @Column({ type: DataTypes.BOOLEAN, defaultValue: false })
   isWorking!: boolean;
 
+  @Column({ type: DataTypes.STRING})
+  guildId!: string;
+
   @BelongsToMany(() => Command, () => CommandRolePermission)
   commands!: Command[];
 }

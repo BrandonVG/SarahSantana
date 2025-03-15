@@ -10,7 +10,7 @@ export default {
     try {
       const roleId = interaction.options.getRole('rol')?.id;
       if (!roleId) return await interaction.reply({ content: 'No se pudo obtener el rol, intenta nuevamente.', flags: MessageFlags.Ephemeral });
-      await Role.update( { isWorking: true }, { where: { roleId: roleId } } )
+      await Role.update( { isWorking: true }, { where: { roleId: roleId, guildId: interaction.guildId } } )
       await interaction.reply({ content: 'Rol asignado correctamente!!', flags: MessageFlags.Ephemeral });
     }
     catch (error) {

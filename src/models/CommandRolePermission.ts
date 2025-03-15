@@ -8,6 +8,9 @@ class CommandRolePermission extends Model {
   @Column({ type: DataTypes.INTEGER })
   commandId!: number;
 
+  @Column({ type: DataTypes.STRING})
+  guildId!: string;
+
   @ForeignKey(() => Role)
   @Column({ type: DataTypes.INTEGER })
   roleId!: number;
