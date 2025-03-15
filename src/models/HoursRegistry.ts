@@ -15,7 +15,7 @@ class HoursRegistry extends Model {
   @Column({ type: DataTypes.DATE, allowNull: true })
   endTime?: Date;
 
-  @Column({ type: DataTypes.FLOAT, defaultValue: 0 })
+  @Column({ type: DataTypes.BIGINT, defaultValue: 0 })
   workedHours!: number;
 
   @BelongsTo(() => Employee)
