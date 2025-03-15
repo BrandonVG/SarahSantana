@@ -7,16 +7,16 @@ import Employee from './Employee';
 class HoursRegistry extends Model {
   @ForeignKey(() => Employee)
   @Column({ type: DataTypes.STRING })
-  employee_id!: string;
+  employeeId!: string;
 
   @Column({ type: DataTypes.DATE })
-  start_time!: Date;
+  startTime!: Date;
 
   @Column({ type: DataTypes.DATE, allowNull: true })
-  end_time?: Date;
+  endTime?: Date;
 
   @Column({ type: DataTypes.FLOAT, defaultValue: 0 })
-  worked_hours!: number;
+  workedHours!: number;
 
   @BelongsTo(() => Employee)
   employee!: Employee;

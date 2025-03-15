@@ -11,6 +11,7 @@ export default {
       { name: "configurarRolEmpleado", value: "configurarRolEmpleado" },
       { name: "configurarRoles", value: "configurarRoles" },
       { name: "configurarRolTrabajando", value: "configurarRolTrabajando" },
+      { name: "registrarEntrada", value: "registrarEntrada" },
     ))
     .addStringOption((option) =>
       option
