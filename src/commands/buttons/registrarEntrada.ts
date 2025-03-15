@@ -4,12 +4,14 @@ import HoursRegistry from '../../models/HoursRegistry';
 import Role from '../../models/Role';
 
 export default {
-  name: 'registrarEntrada',
-  description: 'Registra la entrada de un empleado',
+  data: {
+    name: 'registrar_entrada',
+    description: 'Registra la entrada de un empleado',
+  },
   async execute(interaction: ButtonInteraction){
     try{
       const member = interaction.member as GuildMember;
-      const employee = await Employee.findOne({ where: { userId: member.id } });
+      const employee = await Employee.findOne({ where: { discordId: member.id } });
       const workingRole = await Role.findOne({ attributes: ['roleId'], where: { isWorking: true } });
       if (!employee) return await interaction.reply({ content: 'No estas registrado como empleado, por favor contacta a directiva para registrarte.', flags: MessageFlags.Ephemeral });
       if (employee.isWorking) return await interaction.reply({ content: 'Ya estas trabajando, no puedes registrar tu entrada nuevamente.', flags: MessageFlags.Ephemeral });

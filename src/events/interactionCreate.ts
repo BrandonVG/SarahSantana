@@ -1,9 +1,10 @@
 import {Interaction, MessageFlags } from 'discord.js';
 import { hasPermission } from '../utils/permissions';
+import SaraClient from '../utils/client';
 
 export default {
   name: 'interactionCreate',
-  async execute(interaction: Interaction, client: any){
+  async execute(interaction: Interaction, client: SaraClient){
     const userRoles = interaction.guild?.members.cache.get(interaction.user.id)?.roles.cache.map((role) => role.id) || [];
     let commandName: string | undefined;
     if (interaction.isChatInputCommand()) commandName = interaction.commandName;

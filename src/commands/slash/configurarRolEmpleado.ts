@@ -3,8 +3,8 @@ import Role from '../../models/Role';
 
 export default {
   data: new SlashCommandBuilder()
-    .setName('configurarRolEmpleado')
-    .setDescription('Establece el rol de empleado en la base de datos, necesario para identificar a los empleados y llevar su registro de horas, comando necesario si se creo el rol antes de la implementación del bot.')
+    .setName('configurar_rol_empleado')
+    .setDescription('Establece el rol de empleado en la base de datos.')
     .addRoleOption(option => option.setName('rol').setDescription('El rol que se usara para los empleados').setRequired(true)),
   async execute(interaction: ChatInputCommandInteraction){
     try {

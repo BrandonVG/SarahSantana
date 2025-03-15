@@ -6,7 +6,7 @@ const sequelize = new Sequelize({
   username: 'root',
   password: '',
   storage: ':memory:',
-  models: ['../models'],
+  models: [__dirname + '../models'],
 });
 
 export { sequelize };

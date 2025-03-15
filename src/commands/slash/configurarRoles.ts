@@ -3,8 +3,8 @@ import Role from '../../models/Role';
 
 export default {
   data: new SlashCommandBuilder()
-    .setName('configurarRoles')
-    .setDescription('Carga los roles del servidor en la base de datos, necesario para manejar los permisos de comandos, puede ejecutar el comando si se agregaron roles nuevos o se eliminaron roles.'),
+    .setName('configurar_roles')
+    .setDescription('Carga los roles del servidor en la base de datos'),
   async execute(interaction: ChatInputCommandInteraction){
     try {
       const rolesIds = interaction.guild?.roles.cache.map((role) => role) || [];

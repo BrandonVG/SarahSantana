@@ -5,8 +5,10 @@ import moment from 'moment-timezone';
 import HoursRegistry from '../../models/HoursRegistry'
 
 export default {
-  name: 'consultarHoras',
-  description: 'Consulta las horas trabajadas en la semana',
+  data: {
+    name: 'consultar_horas',
+    description: 'Consulta las horas trabajadas en la semana'
+  },
   async execute(interaction: ButtonInteraction){
     try {
       const id = (interaction.member as GuildMember).id;

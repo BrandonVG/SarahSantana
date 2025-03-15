@@ -4,8 +4,8 @@ import Role from '../../models/Role';
 
 export default {
   data: new SlashCommandBuilder()
-    .setName('configurarPermisosRol')
-    .setDescription('Establece que roles pueden ejecutar un comando, si no se establece ningun rol, cualquier usuario podra ejecutar el comando. Importante cada que se ejecuta este comando se sobreescriben los roles anteriores.')
+    .setName('configurar_permisos_rol')
+    .setDescription('Establece que roles pueden ejecutar un comando, si no se configura cualquiera podra ejecutarlo')
     .addStringOption(option => option.setName('comando').setDescription('El nombre del comando que se quiere configurar').setRequired(true).addChoices(
       { name: "configurarPermisosRol", value: "configurarPermisosRol" },
       { name: "configurarRolEmpleado", value: "configurarRolEmpleado" },
