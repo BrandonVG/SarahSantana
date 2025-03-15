@@ -5,8 +5,8 @@ const sequelize = new Sequelize({
   dialect: 'sqlite',
   username: 'root',
   password: '',
-  storage: ':memory:',
+  storage: './database.sqlite',
   models: [__dirname + '../models'],
 });
 
-export { sequelize };
+export default sequelize ;
