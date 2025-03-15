@@ -6,6 +6,9 @@ class Command extends Model {
   @Column
   name!: string;
 
+  @Column
+  description!: string;
+
   @BelongsToMany(() => Role, () => CommandRolePermission)
   roles!: Role[];
 }

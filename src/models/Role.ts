@@ -6,10 +6,13 @@ import CommandRolePermission from './CommandRolePermission';
 class Role extends Model {
   @PrimaryKey
   @Column({ type: DataTypes.STRING })
-  roleId !: string;
+  roleId!: string;
 
-  @Column({ type: DataTypes.STRING })
-  Name !: string;
+  @Column({ type: DataTypes.BOOLEAN, defaultValue: false })
+  isEmployee!: boolean;
+
+  @Column({ type: DataTypes.BOOLEAN, defaultValue: false })
+  isWorking!: boolean;
 
   @BelongsToMany(() => Command, () => CommandRolePermission)
   commands!: Command[];
