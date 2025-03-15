@@ -14,10 +14,14 @@
   "dependencies": {
     "discord.js": "^14.18.0",
     "dotenv": "^16.4.7",
+    "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.6",
+    "sequelize-typescript": "^2.1.6",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/validator": "^13.12.2",
     "tsup": "^8.4.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"

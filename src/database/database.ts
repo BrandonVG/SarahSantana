@@ -1,10 +1,12 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize-typescript';
 
-const sequelize = new Sequelize('database', 'user', 'password',{
-  host: 'localhost',
+const sequelize = new Sequelize({
+  database: 'database',
   dialect: 'sqlite',
-  logging: false,
-  storage: 'database.sqlite',
+  username: 'root',
+  password: '',
+  storage: ':memory:',
+  models: ['../models'],
 });
 
 export { sequelize };
