@@ -4,24 +4,31 @@ import { hasPermission } from '../utils/permissions';
 export default {
   name: 'interactionCreate',
   async execute(interaction: Interaction, client: any){
-    if (!interaction.isChatInputCommand()) return;
-
-    const command = client.commands.get(interaction.commandName);
-    if (!command) return;
-
     const userRoles = interaction.guild?.members.cache.get(interaction.user.id)?.roles.cache.map((role) => role.id) || [];
+    let commandName: string | undefined;
+    if (interaction.isChatInputCommand()) commandName = interaction.commandName;
+    else if (interaction.isButton()) commandName = interaction.customId;
+    if (!commandName) return;
 
-    const isAllowed = await hasPermission(interaction.commandName, userRoles);
+    const handler = client.commands.get(commandName);
+    if (!handler) return;
+
+    const isAllowed = await hasPermission(commandName, userRoles);
     if (!isAllowed) {
-      return interaction.reply({ content: 'No tienes permisos para ejecutar este comando', flags: MessageFlags.Ephemeral });
+      if (interaction.isRepliable()) {
+        return interaction.reply({ content: 'No tienes permisos para ejecutar esta acción.', flags: MessageFlags.Ephemeral });
+      }
     }
 
     try {
-      await command.execute(interaction);
-    }
-    catch (error) {
+      await handler.execute(interaction);
+    } catch (error) {
       console.error(error);
-      await interaction.reply({ content: 'Hubo un error al ejecutar el comando', flags: MessageFlags.Ephemeral });
+      if (interaction.isRepliable()) {
+        await interaction.reply({ content: 'Hubo un error al ejecutar esta acción, intenta más tarde o avisa a directiva del error.', flags: MessageFlags.Ephemeral });
+      }
     }
   }
 }
+
+
