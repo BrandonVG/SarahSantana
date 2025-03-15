@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, Role as DiscordRole, MessageFlags, ChatInputCommandInteraction } from 'discord.js';
+import { SlashCommandBuilder, MessageFlags, ChatInputCommandInteraction } from 'discord.js';
 import Role from '../../models/Role';
 
 export default {
