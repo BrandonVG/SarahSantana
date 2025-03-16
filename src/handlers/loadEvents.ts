@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs';
-import path from 'path';
+import * as path from 'path';
 import SaraClient from '../utils/client';
 
 export default async (client: SaraClient) => {

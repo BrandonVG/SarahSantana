@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import path from 'path';
+import * as path from 'path';
 
 const sequelize = new Sequelize({
   database: 'database',
