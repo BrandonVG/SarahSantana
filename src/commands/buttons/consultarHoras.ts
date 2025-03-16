@@ -2,7 +2,7 @@ import { ButtonInteraction, GuildMember, MessageFlags } from 'discord.js';
 import { Op } from 'sequelize';
 import moment from 'moment-timezone';
 import HoursRegistry from '../../models/HoursRegistry'
-import loadPrettyMs from '../../utils/importPrettyMs';
+import prettyMilliseconds from '../../utils/prettyMilliseconds';
 
 export default {
   data: {
@@ -11,7 +11,6 @@ export default {
   },
   async execute(interaction: ButtonInteraction){
     try {
-      const prettyMilliseconds = await loadPrettyMs();
       const id = (interaction.member as GuildMember).id;
       const now = moment().tz("Europe/Madrid");
       const startMonday = now.clone().startOf('isoWeek');
@@ -22,7 +21,7 @@ export default {
       const utcEndMonday = endMonday.clone().tz('UTC');
       const registries = await HoursRegistry.findAll({ where: { employeeId: id, startTime: { [Op.gte]: utcStartMonday, [Op.lt]: utcEndMonday }, guildId: interaction.guildId } });
       const totalHours = registries.reduce((total, registry) => total + registry.workedHours, 0);
-      await interaction.reply({ content: `Has trabajado un total de ${prettyMilliseconds(totalHours, { hideYearAndDays: true, hideSeconds: true })} en la semana.`, flags: MessageFlags.Ephemeral });
+      await interaction.reply({ content: `Has trabajado un total de ${prettyMilliseconds(totalHours)} en la semana.`, flags: MessageFlags.Ephemeral });
     }
     catch (error) {
       console.error(error);

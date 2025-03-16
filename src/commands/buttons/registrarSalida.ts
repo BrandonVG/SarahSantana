@@ -2,7 +2,7 @@ import { ButtonInteraction, GuildMember, GuildMemberRoleManager, MessageFlags } 
 import Employee from '../../models/Employee';
 import HoursRegistry from '../../models/HoursRegistry';
 import Role from '../../models/Role';
-import loadPrettyMs from '../../utils/importPrettyMs';
+import prettyMilliseconds from '../../utils/prettyMilliseconds';
 
 export default {
   data: {
@@ -11,7 +11,6 @@ export default {
   },
   async execute(interaction: ButtonInteraction){
     try{
-      const prettyMilliseconds = await loadPrettyMs();
       const member = interaction.member as GuildMember;
       const employee = await Employee.findOne({ where: { discordId: member.id, guildId: interaction.guildId } });
       const workingRole = await Role.findOne({ attributes: ['roleId'], where: { isWorking: true, guildId: interaction.guildId } });
@@ -27,7 +26,7 @@ export default {
       if (workingRole && (member.roles as GuildMemberRoleManager).cache.has(workingRole?.roleId)){
         await (member.roles as GuildMemberRoleManager).remove(workingRole.roleId);
       }
-      await interaction.reply({ content: `Salida registrada correctamente, trabajaste un total de ${prettyMilliseconds(lastRegistry.workedHours, { hideYearAndDays: true, hideSeconds: true })}!`, flags: MessageFlags.Ephemeral });
+      await interaction.reply({ content: `Salida registrada correctamente, trabajaste un total de ${prettyMilliseconds(lastRegistry.workedHours)}!`, flags: MessageFlags.Ephemeral });
     }
     catch (error) {
       console.error(error);

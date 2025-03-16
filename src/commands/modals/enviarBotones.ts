@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalSubmitInteraction } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalSubmitInteraction, TextChannel } from 'discord.js';
 
 export default {
   data: {
@@ -27,6 +27,11 @@ export default {
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(startButton, endButton, optionsButton);
 
-    await interaction.reply({ components: [row] });
+    const channel = interaction.guild?.channels.cache.get(interaction.channelId ?? '');
+    if (channel && channel.isTextBased()) {
+      await (channel as TextChannel).send({ components: [row] });
+    } else {
+      await interaction.reply({ components: [row] });
+    }
   }
 }
