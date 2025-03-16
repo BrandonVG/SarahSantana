@@ -17,7 +17,7 @@ export default {
       if (employee.isWorking) return await interaction.reply({ content: 'Ya estas trabajando, no puedes registrar tu entrada nuevamente.', flags: MessageFlags.Ephemeral });
       employee.isWorking = true;
       await employee.save();
-      await HoursRegistry.create({ employeeId: employee.id, startTime: new Date(), guildId: interaction.guildId });
+      await HoursRegistry.create({ employeeId: employee.discordId, startTime: new Date(), guildId: interaction.guildId });
       if (workingRole && !(member.roles as GuildMemberRoleManager).cache.has(workingRole?.roleId)){
         await (member.roles as GuildMemberRoleManager).add(workingRole.roleId);
       }
