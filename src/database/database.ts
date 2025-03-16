@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
+import path from 'path';
 
 const sequelize = new Sequelize({
   database: 'database',
@@ -6,7 +7,7 @@ const sequelize = new Sequelize({
   username: 'root',
   password: '',
   storage: './database.sqlite',
-  models: [__dirname + '../models'],
+  models: [path.join(__dirname, '../models')],
 });
 
 export default sequelize ;

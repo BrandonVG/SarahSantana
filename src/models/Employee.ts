@@ -1,7 +1,8 @@
-import { Model, Column, HasMany } from 'sequelize-typescript';
+import { Model, Column, HasMany, Table } from 'sequelize-typescript';
 import { DataTypes } from 'sequelize';
 import HoursRegistry from './HoursRegistry';
 
+@Table
 class Employee extends Model {
   @Column({ type: DataTypes.STRING, primaryKey: true })
   discordId!: string;

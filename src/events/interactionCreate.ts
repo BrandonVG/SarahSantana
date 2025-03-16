@@ -1,9 +1,9 @@
-import {Interaction, MessageFlags } from 'discord.js';
+import {Events, Interaction, MessageFlags } from 'discord.js';
 import { hasPermission } from '../utils/permissions';
 import SaraClient from '../utils/client';
 
 export default {
-  name: 'interactionCreate',
+  name: Events.InteractionCreate,
   async execute(interaction: Interaction, client: SaraClient){
     const userRoles = interaction.guild?.members.cache.get(interaction.user.id)?.roles.cache.map((role) => role.id) || [];
     let commandName: string | undefined;
@@ -16,9 +16,15 @@ export default {
       commandName = interaction.customId;
       guildId = interaction.guildId;
     }
+    else if (interaction.isModalSubmit()){
+      commandName = interaction.customId;
+      guildId = interaction.guildId;
+    }
+    
     if (!commandName || !guildId) return;
 
     const handler = client.commands.get(commandName);
+    console.log(handler);
     if (!handler) return;
 
     const isAllowed = await hasPermission(commandName, userRoles, guildId);

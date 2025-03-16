@@ -1,8 +1,9 @@
-import { Model, Column, PrimaryKey, BelongsToMany } from 'sequelize-typescript';
+import { Model, Column, PrimaryKey, BelongsToMany, Table } from 'sequelize-typescript';
 import { DataTypes } from 'sequelize';
 import Command from './Command';
 import CommandRolePermission from './CommandRolePermission';
 
+@Table
 class Role extends Model {
   @PrimaryKey
   @Column({ type: DataTypes.STRING })
