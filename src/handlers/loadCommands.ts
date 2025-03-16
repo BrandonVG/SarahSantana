@@ -1,6 +1,7 @@
 import { readdirSync } from 'fs';
 import * as path from 'path';
 import SaraClient from '../utils/client';
+import Command from '../models/Command';
 
 export default async function loadCommands(client: SaraClient){
   try {
@@ -12,6 +13,7 @@ export default async function loadCommands(client: SaraClient){
         client.commands.set(command.data.name, command);
       }
     }
+    await Command.bulkCreate(client.commands.map(cmd => ({ name: cmd.data.name, description: cmd.data.description })), { ignoreDuplicates: true });
   }
   catch (error) {
     console.error(error);
