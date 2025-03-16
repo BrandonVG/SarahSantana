@@ -24,7 +24,6 @@ export default {
     if (!commandName || !guildId) return;
 
     const handler = client.commands.get(commandName);
-    console.log(handler);
     if (!handler) return;
 
     const isAllowed = await hasPermission(commandName, userRoles, guildId);

@@ -6,7 +6,7 @@ export default {
     .setDescription('Enviar botones de registro'),
   async execute(interaction: ChatInputCommandInteraction){
     const modal = new ModalBuilder()
-      .setCustomId('modalBotonesRegistro')
+      .setCustomId('enviar_botones')
       .setTitle('Texto de botones');
 
     const startButtonInput = new TextInputBuilder()

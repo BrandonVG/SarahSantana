@@ -7,7 +7,6 @@ export default {
     .setDescription('Carga los roles del servidor en la base de datos'),
   async execute(interaction: ChatInputCommandInteraction){
     try {
-      console.log("HOLA")
       const roles = interaction.guild?.roles.cache.map((role) => role) || [];
       for (const role of roles) {
         await Role.findOrCreate({

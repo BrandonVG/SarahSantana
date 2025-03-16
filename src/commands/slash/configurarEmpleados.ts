@@ -8,6 +8,7 @@ export default {
     .setDescription('Carga los empleados en caso de que ya existan usuarios con rol de empleado'),
     async execute(interaction: ChatInputCommandInteraction){
       try{
+        console.log(interaction.guildId);
         const employeeRole = await Role.findOne({ where: { isEmployee: true, guildId: interaction.guildId } });
         if (!employeeRole) return await interaction.reply({ content: 'No se ha configurado el rol de empleado, por favor contacta a la directiva.', flags: MessageFlags.Ephemeral });
         const usersWithEmployeeRole = interaction.guild?.roles.cache.get(employeeRole.roleId)?.members.map(member => member.id) || [];

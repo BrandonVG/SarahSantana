@@ -10,11 +10,8 @@ const client = new SaraClient({ intents: [GatewayIntentBits.Guilds, GatewayInten
 
 (async () => {
   await loadCommands(client);
-  console.log('Commands loaded');
   await registerCommands(client);
-  console.log('Commands registered');
   await loadEvents(client);
-  console.log('Events loaded');
   try {
     await sequelize.authenticate();
     await sequelize.sync();

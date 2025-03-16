@@ -6,7 +6,6 @@ export default {
     description: 'Envia botones de registro',
   },
   async execute(interaction: ModalSubmitInteraction){
-    console.log("HAHAHAHA");
     const startText = interaction.fields.getTextInputValue('startButton');
     const endText = interaction.fields.getTextInputValue('endButton');
     const optionsText = interaction.fields.getTextInputValue('myHours');
