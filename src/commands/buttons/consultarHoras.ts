@@ -19,7 +19,7 @@ export default {
       endMonday.set({ hour: 8, minute: 0, second: 0, millisecond: 0 });
       const utcStartMonday = startMonday.clone().tz('UTC');
       const utcEndMonday = endMonday.clone().tz('UTC');
-      const registries = await HoursRegistry.findAll({ where: { employeeId: id, startTime: { [Op.gte]: utcStartMonday, [Op.lt]: utcEndMonday }, guildId: interaction.guildId } });
+      const registries = await HoursRegistry.findAll({ where: { employeeId: id, workedHours: { [Op.not]: null }, startTime: { [Op.gte]: utcStartMonday, [Op.lt]: utcEndMonday }, guildId: interaction.guildId } });
       const totalHours = registries.reduce((total, registry) => total + registry.workedHours, 0);
       await interaction.reply({ content: `Has trabajado un total de ${prettyMilliseconds(totalHours)} en la semana.`, flags: MessageFlags.Ephemeral });
     }
