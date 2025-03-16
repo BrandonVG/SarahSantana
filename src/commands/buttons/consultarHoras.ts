@@ -1,8 +1,8 @@
 import { ButtonInteraction, GuildMember, MessageFlags } from 'discord.js';
-import prettyMilliseconds from 'pretty-ms';
 import { Op } from 'sequelize';
 import moment from 'moment-timezone';
 import HoursRegistry from '../../models/HoursRegistry'
+import loadPrettyMs from '../../utils/importPrettyMs';
 
 export default {
   data: {
@@ -11,6 +11,7 @@ export default {
   },
   async execute(interaction: ButtonInteraction){
     try {
+      const prettyMilliseconds = await loadPrettyMs();
       const id = (interaction.member as GuildMember).id;
       const now = moment().tz("Europe/Madrid");
       const startMonday = now.clone().startOf('isoWeek');

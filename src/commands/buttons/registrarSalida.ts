@@ -1,8 +1,8 @@
 import { ButtonInteraction, GuildMember, GuildMemberRoleManager, MessageFlags } from 'discord.js';
-import prettyMilliseconds from 'pretty-ms';
 import Employee from '../../models/Employee';
 import HoursRegistry from '../../models/HoursRegistry';
 import Role from '../../models/Role';
+import loadPrettyMs from '../../utils/importPrettyMs';
 
 export default {
   data: {
@@ -11,6 +11,7 @@ export default {
   },
   async execute(interaction: ButtonInteraction){
     try{
+      const prettyMilliseconds = await loadPrettyMs();
       const member = interaction.member as GuildMember;
       const employee = await Employee.findOne({ where: { discordId: member.id, guildId: interaction.guildId } });
       const workingRole = await Role.findOne({ attributes: ['roleId'], where: { isWorking: true, guildId: interaction.guildId } });

@@ -6,7 +6,7 @@ export default async function loadCommands(client: SaraClient){
   try {
     const commandFolders = readdirSync(path.join(__dirname, '../commands'));
     for (const folder of commandFolders){
-      const commandFiles = readdirSync(path.join(__dirname, `../commands/${folder}`)).filter(file => file.endsWith('.ts'));
+      const commandFiles = readdirSync(path.join(__dirname, `../commands/${folder}`)).filter(file => file.endsWith('.ts') || file.endsWith('.js'));
       for (const file of commandFiles){
         const command = (await import(`../commands/${folder}/${file}`)).default;
         client.commands.set(command.data.name, command);
