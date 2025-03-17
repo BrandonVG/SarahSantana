@@ -7,7 +7,12 @@ export default {
     .setName('configurar_permisos_rol')
     .setDescription('Establece que roles pueden ejecutar un comando, si no se configura cualquiera podra ejecutarlo')
     .addStringOption(option => option.setName('comando').setDescription('El nombre del comando que se quiere configurar').setRequired(true).addChoices(
+      { name: "botones_registro", value: "botones_registro" },
+      { name: "botones_registro_local", value: "botones_registro_local" },
       { name: "consultar_horas", value: "consultar_horas" },
+      { name: "consultar_horas_local", value: "consultar_horas_local" },
+      { name: "registrar_apertura", value: "registrar_apertura" },
+      { name: "registrar_cierre", value: "registrar_cierre" },
       { name: "registrar_entrada", value: "registrar_entrada" },
       { name: "registrar_salida", value: "registrar_salida" },
       { name: "conf_empleados", value: "conf_empleados" },
@@ -15,6 +20,7 @@ export default {
       { name: "configurar_rol_empleado", value: "configurar_rol_empleado" },
       { name: "configurar_roles", value: "configurar_roles" },
       { name: "configurar_rol_trabajando", value: "configurar_rol_trabajando" },
+      { name: "modificar_tiempo_empleado", value: "modificar_tiempo_empleado" },
     ))
     .addStringOption((option) =>
       option
