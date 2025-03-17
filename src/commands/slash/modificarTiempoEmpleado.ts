@@ -24,7 +24,7 @@ export default {
     .addNumberOption(option =>
       option
         .setName('time')
-        .setDescription('Cantidad númerica de tiempo a agregar, solamente un número entero, ej "1" o "30"')
+        .setDescription('Cantidad númerica de tiempo a agregar, solamente un número entero, ej "1" o "30" o "-10"')
         .setRequired(true)
     ),
   async execute(interaction: ChatInputCommandInteraction){
