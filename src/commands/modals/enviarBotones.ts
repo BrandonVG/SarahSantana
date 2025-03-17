@@ -30,6 +30,7 @@ export default {
     const channel = interaction.guild?.channels.cache.get(interaction.channelId ?? '');
     if (channel && channel.isTextBased()) {
       await (channel as TextChannel).send({ components: [row] });
+      await interaction.reply({ content: 'Botones enviados correctamente', ephemeral: true });
     } else {
       await interaction.reply({ components: [row] });
     }
