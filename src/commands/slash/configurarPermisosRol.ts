@@ -21,6 +21,7 @@ export default {
       { name: "configurar_roles", value: "configurar_roles" },
       { name: "configurar_rol_trabajando", value: "configurar_rol_trabajando" },
       { name: "modificar_tiempo_empleado", value: "modificar_tiempo_empleado" },
+      { name: "modificar_tiempo_local", value: "modificar_tiempo_local" },
     ))
     .addStringOption((option) =>
       option

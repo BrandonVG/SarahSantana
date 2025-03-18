@@ -3,7 +3,7 @@ import { Model, Table, Column } from 'sequelize-typescript';
 import { DataTypes } from 'sequelize';
 
 @Table
-class HoursRegistry extends Model {
+class LocalRegistry extends Model {
 
   @Column({ type: DataTypes.DATE })
   startTime!: Date;
@@ -18,4 +18,4 @@ class HoursRegistry extends Model {
   guildId!: string;
 }
 
-export default HoursRegistry;
+export default LocalRegistry;

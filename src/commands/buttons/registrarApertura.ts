@@ -10,7 +10,7 @@ export default {
   async execute(interaction: ButtonInteraction){
     try{
       const lastRegistry = await LocalRegistry.findOne({ where: { guildId: interaction.guildId }, order: [['startTime', 'DESC']] });
-      if (!lastRegistry?.endTime) return await interaction.reply({ content: 'Ya estas abierto el local, no puedes registrar la apertura nuevamente.', flags: MessageFlags.Ephemeral });
+      if (lastRegistry && !lastRegistry?.endTime) return await interaction.reply({ content: 'Ya estas abierto el local, no puedes registrar la apertura nuevamente.', flags: MessageFlags.Ephemeral });
       const startDate = new Date();
       const spainTime = moment(startDate).tz('Europe/Madrid').format('HH:mm');
       await LocalRegistry.create({ startTime: startDate, guildId: interaction.guildId });
