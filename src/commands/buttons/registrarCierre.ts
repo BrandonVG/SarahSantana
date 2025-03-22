@@ -32,7 +32,14 @@ export default {
       for (const employee of workingEmployees){
         employee.isWorking = false;
         await employee.save();
-        const member = await interaction.guild?.members.fetch(employee.discordId);
+        let member;
+        try {
+          member = await interaction.guild?.members.fetch(employee.discordId);
+        }
+        catch (error){
+          console.error(error);
+          continue;
+        }
         if (workingRole && member && member.roles.cache.has(workingRole?.roleId)){
           await member.roles.remove(workingRole.roleId);
         }
