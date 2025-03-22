@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, MessageFlags, ChatInputCommandInteraction } from 'discord.js';
 import Command from '../../models/Command';
 import Role from '../../models/Role';
+import CommandRolePermission from '../../models/CommandRolePermission';
 
 export default {
   data: new SlashCommandBuilder()
@@ -50,7 +51,7 @@ export default {
         if (roleIds.length === 0) return await interaction.reply({ content: 'No se pudo obtener los roles, intenta nuevamente.', flags: MessageFlags.Ephemeral });
         const roles = await Role.findAll({ where: { roleId: roleIds, guildId: interaction.guildId } });
         await dbCommand.$set('roles', []);
-        await dbCommand.$add('roles', roles);
+        await CommandRolePermission.bulkCreate(roles.map(role => ({ commandId: dbCommand.id, roleId: role.roleId, guildId: interaction.guildId })), { ignoreDuplicates: true });
         await interaction.reply({ content: 'Permisos asignados correctamente!!', flags: MessageFlags.Ephemeral });
       }
       catch (error) {
