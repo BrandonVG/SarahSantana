@@ -62,7 +62,7 @@ export default {
         if (closeMessage) {
           await closeMessage.delete();
         }
-      }, 60000);
+      }, 600000);
     }
     catch (error) {
       console.error(error);
