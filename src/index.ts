@@ -14,7 +14,7 @@ const client = new SaraClient({ intents: [GatewayIntentBits.Guilds, GatewayInten
   await loadEvents(client);
   try {
     await sequelize.authenticate();
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
     console.log('Connection to the database has been established successfully.');
   }
   catch(error){
