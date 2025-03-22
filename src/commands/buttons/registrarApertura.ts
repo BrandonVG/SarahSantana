@@ -13,12 +13,14 @@ export default {
       if (lastRegistry && !lastRegistry?.endTime) return await interaction.reply({ content: 'Ya estas abierto el local, no puedes registrar la apertura nuevamente.', flags: MessageFlags.Ephemeral });
       const startDate = new Date();
       const spainTime = moment(startDate).tz('Europe/Madrid').format('HH:mm');
-      await LocalRegistry.create({ startTime: startDate, guildId: interaction.guildId });
+      const openRegistry = await LocalRegistry.create({ startTime: startDate, guildId: interaction.guildId });
       const embed = new EmbedBuilder()
         .setColor("#FFFFFF")
         .setTitle('Apertura registrada correctamente')
         .setDescription('```Nombre del local: Route 68 Garage\nHora de apertura: ' + spainTime + '```');
-      await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
+      const sentMessage = await interaction.reply({ embeds: [embed], fetchReply: true });
+      openRegistry.messageId = sentMessage.id;
+      await openRegistry.save();
     }
     catch (error) {
       console.error(error);

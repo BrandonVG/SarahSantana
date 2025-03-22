@@ -14,6 +14,9 @@ class LocalRegistry extends Model {
   @Column({ type: DataTypes.BIGINT, defaultValue: 0 })
   workedHours!: number;
 
+  @Column({ type: DataTypes.STRING, allowNull: true })
+  messageId?: string;
+
   @Column({ type: DataTypes.STRING})
   guildId!: string;
 }
