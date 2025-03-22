@@ -2,6 +2,7 @@ import { ButtonInteraction, EmbedBuilder, MessageFlags } from 'discord.js';
 import LocalRegistry from '../../models/LocalRegistry';
 import moment from 'moment-timezone';
 import prettyMilliseconds from '../../utils/prettyMilliseconds';
+import Role from '../../models/Role';
 
 export default {
   data: {
@@ -10,6 +11,7 @@ export default {
   },
   async execute(interaction: ButtonInteraction){
     try{
+      const employeeRole = await Role.findOne({ where: { guildId: interaction.guildId, isEmployee: true } });
       const lastRegistry = await LocalRegistry.findOne({ where: { guildId: interaction.guildId }, order: [['startTime', 'DESC']] });
       if (!lastRegistry) return await interaction.reply({ content: 'No hay ningun registro de apertura, haz la apertura, si ya se hizo una apertura contacta a directiva para reportar el error', flags: MessageFlags.Ephemeral });
       const endTime = new Date();
@@ -20,21 +22,18 @@ export default {
       const embed = new EmbedBuilder()
       .setColor("#FFFFFF")
       .setTitle('Cierre registrado correctamente')
+      .addFields({ name: 'Mensaje', value: 'Taller cerrado'})
       .setDescription('```Hora de cierre: '+ spainTime  +'\nTotal de horas: ' + prettyMilliseconds(lastRegistry.workedHours) + '```');
-      const closeMessage = await interaction.reply({ embeds: [embed] });
+      const closeMessage = await interaction.reply({ content: `<@&${employeeRole?.roleId}>`, embeds: [embed] });
       setTimeout(async () => {
         if (!interaction.channel) return;
-        console.log('Deleting messages');
-        console.log(lastRegistry.messageId);
         const openMessage = interaction.channel.messages.cache.get(lastRegistry.messageId ?? '');
         if (openMessage){
-          console.log('Deleting open message');
           lastRegistry.messageId = undefined;
           await lastRegistry.save();
           await openMessage.delete();
         }
         if (closeMessage) {
-          console.log('Deleting close message');
           await closeMessage.delete();
         }
       }, 60000);

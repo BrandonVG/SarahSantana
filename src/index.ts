@@ -6,7 +6,7 @@ import loadCommands from './handlers/loadCommands';
 import loadEvents from './handlers/loadEvents';
 import registerCommands from './handlers/registerCommands';
 
-const client = new SaraClient({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+const client = new SaraClient({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent], allowedMentions: { parse: ['users', 'roles'] } });
 
 (async () => {
   await loadCommands(client);
