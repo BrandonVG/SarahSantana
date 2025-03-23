@@ -49,10 +49,6 @@ export default async function getWeekHours(interaction: ChatInputCommandInteract
     }
   }
 
-  console.log(hoursGroupedEmployee);
-  console.log(allRegistries);
-  console.log("-------------------------------------------");
-
   const totalHours = Object.values(hoursGroupedEmployee).reduce((total, hours) => total + hours, 0);
 
   return { totalHours, hoursGroupedEmployee };
