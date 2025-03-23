@@ -53,7 +53,7 @@ export default {
 
       const embed = new EmbedBuilder()
         .setColor("#FFFFFF")
-        .setTitle('Horas trabajadas de la semana')
+        .setTitle('Prima semanal')
         .setFields(table.toField());
 
       await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
