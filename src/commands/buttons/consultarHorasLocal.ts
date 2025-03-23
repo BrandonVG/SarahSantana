@@ -1,4 +1,4 @@
-import { ButtonInteraction, GuildMember, MessageFlags } from 'discord.js';
+import { ButtonInteraction, MessageFlags } from 'discord.js';
 import { Op } from 'sequelize';
 import moment from 'moment-timezone';
 import LocalRegistry from '../../models/LocalRegistry';
