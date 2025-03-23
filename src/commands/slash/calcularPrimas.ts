@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, MessageFlags, ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, MessageFlags, ChatInputCommandInteraction, EmbedBuilder, TextChannel } from 'discord.js';
 import { Table } from 'embed-table';
 import prettyMilliseconds from '../../utils/prettyMilliseconds';
 import getWeekHours from '../../utils/getWeekHours';
@@ -56,7 +56,9 @@ export default {
         .setTitle('Prima semanal')
         .setFields(table.toField());
 
-      await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
+      const channel = interaction.guild?.channels.cache.get(interaction.channelId);
+      await (channel as TextChannel).send({ embeds: [embed] });
+      await interaction.reply({ content: 'Primas enviadas correctamente', flags: MessageFlags.Ephemeral });
     }
     catch (error) {
       console.error(error);
