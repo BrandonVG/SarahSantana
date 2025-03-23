@@ -20,11 +20,19 @@ export default {
       });
 
       for (const [employeeId, hours] of Object.entries(hoursGroupedEmployee)) {
-        console.log(employeeId, hours);
-        const employee = interaction?.guild?.members.cache.get(employeeId);
-        if (employee) {
-          console.log("Si entra aca");
-          table.addRow([employee.displayName, prettyMilliseconds(hours), `${((hours / totalHours) * 100).toFixed(2)}%`]);
+        try {
+
+          const employee = interaction?.guild?.members.cache.get(employeeId);
+          if (employee) {
+            table.addRow([employee.displayName, prettyMilliseconds(hours), `${((hours / totalHours) * 100).toFixed(2)}%`]);
+          }
+        }
+        catch (error) {
+          console.error(error);
+          console.log("-------------------------------");
+          console.log("Error en el empleado:");
+          console.log(employeeId);
+          console.log("-------------------------------");
         }
         console.log("-------------------------------");
       }
